@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const server = express();
+const validator = require('../middleware/validator');
 
 const SUPERVISORS_URL = 'https://o3m5qixdng.execute-api.us-east-1.amazonaws.com/api/managers';
 const test_data = require('./test_data.js');
@@ -40,10 +41,11 @@ server.get('/api/supervisors', async (req, res) => {
     }
 });
 
-//Post Notification route
-server.post('/api/submit', (req, res) => {
-    console.log(req.body)
+//Post Notification route with validation middleware
+server.post('/api/submit', validator, (req, res) => {
+
     res.status(201).json({response: "success"})
+    
 });
 
 module.exports = server;
