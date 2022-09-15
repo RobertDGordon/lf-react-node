@@ -43,9 +43,9 @@ server.get('/api/supervisors', async (req, res) => {
 
 //Post Notification route with validation middleware
 server.post('/api/submit', validator, (req, res) => {
+    console.log('Valid post:', req.body);
+    res.status(201).json({response: req.body})
 
-    res.status(201).json({response: "success"})
-    
 });
 
 module.exports = server;
