@@ -13,9 +13,13 @@ server.get('/api', (req, res) => {
 //Managers route
 server.get('/api/supervisors', async (req, res) => {
     // let response = await axios(SUPERVISORS_URL);
-    let response = test_data
 
-    console.log(response.data)
+    //remove numerical jurisdictions
+    let filtered = test_data.data.filter(item => !isFinite(item.jurisdiction));
+
+    console.log(filtered, filtered.length);
+
+    res.status(200).json({response: filtered});
 
 })
 
