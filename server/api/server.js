@@ -13,13 +13,22 @@ server.get('/api', (req, res) => {
 //Managers route
 server.get('/api/supervisors', async (req, res) => {
     // let response = await axios(SUPERVISORS_URL);
-
+    
     //remove numerical jurisdictions
-    let filtered = test_data.data.filter(item => !isFinite(item.jurisdiction));
+    let filtered = test_data.data.filter(item => !isFinite(item.jurisdiction))
 
-    console.log(filtered, filtered.length);
+    //sort by jurisdiction, then lastName, then firstName (could be chained to above, but kept separate for readability)
+    let sorted = filtered.sort((a, b) => {
+        const jurisdiction = a.jurisdiction.localeCompare(b.jurisdiction);
+        const lastName = a.lastName.localeCompare(b.lastName);
+        const firstName = a.firstName.localeCompare(b.firstName);
 
-    res.status(200).json({response: filtered});
+        return jurisdiction || lastName || firstName
+    })
+
+    console.log(sorted)
+
+    res.status(200).json({response: sorted})
 
 })
 
