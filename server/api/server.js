@@ -33,9 +33,14 @@ server.get('/api/supervisors', async (req, res) => {
             return jurisdiction || lastName || firstName
         });
 
-        console.log(`Returning ${sorted.length} items.`);
+        //extract jurisdiction, lastName, firstName and format to string
+        let supervisorList = sorted.map((item) => {
+            return `${item.jurisdiction} - ${item.lastName}, ${item.firstName}`
+        })
 
-        res.status(200).json({response: sorted});
+        console.log(`Returning ${supervisorList.length} items.`);
+
+        res.status(200).json({response: supervisorList});
 
     } catch (error) {
         console.log('Error:', error.message);

@@ -63,6 +63,13 @@ label{
     width: 100%;
 }
 
+.notification-form-sending{
+    width: 250px;
+    padding: 9px 40px 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
 .notification-form-button{
     border-radius: 2px;
     background-color: #F0F8FF;

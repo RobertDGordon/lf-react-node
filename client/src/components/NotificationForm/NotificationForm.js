@@ -14,7 +14,7 @@ const NotificationForm = () => {
 		phoneNumber: "",
 		Supervisor: "",
 	});
-	const [supervisorsData, setSupervisorsData] = useState([]);
+	const [supervisorsList, setSupervisorsList] = useState([]);
 
 	const handleChange = (e) => {
 		e.preventDefault();
@@ -31,35 +31,10 @@ const NotificationForm = () => {
 	};
 
 	useEffect(() => {
-		if (!supervisorsData.length) {
-			getSupervisors(setSupervisorsData);
+		if (!supervisorsList.length) {
+			getSupervisors(setSupervisorsList);
 		}
-	}, [supervisorsData]);
-
-	const supervisorsList = () => {
-		return (
-			<select
-				className="notification-form-item-select"
-				name="Supervisor"
-				onChange={handleChange}
-				defaultValue={""}
-				required
-			>
-				<option value="" disabled>
-					Select a supervisor...
-				</option>
-				{supervisorsData.map((supervisor, index) => (
-					<option
-						value={`${supervisor.jurisdiction} - ${supervisor.lastName}, ${supervisor.firstName}`}
-						key={index}
-					>
-						{supervisor.jurisdiction} - {supervisor.lastName},{" "}
-						{supervisor.firstName}
-					</option>
-				))}
-			</select>
-		);
-	};
+	}, [supervisorsList]);
 
 	return (
 		<div className="form-container">
@@ -118,12 +93,32 @@ const NotificationForm = () => {
 					</div>
 				</div>
 				<div className="notification-form-row">
-					<div className="notification-form-item">{supervisorsList()}</div>
+					<div className="notification-form-item">
+                        <select
+                            className="notification-form-item-select"
+                            name="Supervisor"
+                            onChange={handleChange}
+                            value={formData.Supervisor}
+                            required
+                        >
+                            <option value="" disabled>
+                                Select a supervisor...
+                            </option>
+                            {supervisorsList.map((supervisor, index) => (
+                                <option
+                                    value={supervisor}
+                                    key={index}
+                                >
+                                    {supervisor}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 				</div>
 				<div className="notification-form-row">
 					<div className="notification-form-item">
 						{isLoading ? (
-							<div>Sending...</div>
+							<div className="notification-form-sending">Sending...</div>
 						) : (
 							<button className="notification-form-button" type="submit">
 								Submit

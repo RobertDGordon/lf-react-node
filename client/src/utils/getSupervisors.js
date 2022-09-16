@@ -1,16 +1,12 @@
 import axios from 'axios';
 
-export const getSupervisors = (setSupervisorsData) => {
+export const getSupervisors = (setSupervisorsList) => {
     axios.get('http://localhost:5000/api/supervisors')
         .then(res => {
-            setSupervisorsData(res.data.response);
+            setSupervisorsList(res.data.response);
         })
         .catch(err => {
             console.log(err);
-            setSupervisorsData([{
-                jurisdiction: "Error",
-                lastName: err.code,
-                firstName: err.response.status
-            }]);
+            setSupervisorsList([`Error ${err.response.status} ${err.code}`]);
         })
 }
