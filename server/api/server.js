@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 const server = express();
 const validator = require('../middleware/validator');
 
@@ -7,6 +8,7 @@ const SUPERVISORS_URL = 'https://o3m5qixdng.execute-api.us-east-1.amazonaws.com/
 const test_data = require('./test_data.js');
 
 server.use(express.json());
+server.use(cors());
 
 //Main route
 server.get('/api', (req, res) => {

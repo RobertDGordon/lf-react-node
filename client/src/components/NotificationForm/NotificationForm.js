@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getSupervisors } from '../../utils/getSupervisors';
+import { submitData } from '../../utils/submitData';
 import '../../styles/notification_form.css';
 
 const NotificationForm = () => {
 
-    const [isLoading, SetIsLoading] = useState(false);
-    const [error, SetError] = useState("");
-    const [response, SetResponse] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [response, setResponse] = useState("");
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -13,24 +15,54 @@ const NotificationForm = () => {
         phoneNumber: "",
         Supervisor: ""
     })
+    const [supervisorsData, setSupervisorsData] = useState([])
 
-    const handleChange = (event) => {
-        event.preventDefault()
+    const handleChange = (e) => {
+        e.preventDefault()
         setFormData({
             ...formData,
-            [event.target.name]: event.target.value
+            [e.target.name]: e.target.value
         })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        // authenticateUser(login, updateState, () => props.history.push('/dashboard/overview'));
+        setIsLoading(true)
+        submitData(formData, setIsLoading, setError, setResponse)
     }
+
+    useEffect(() =>{
+        if (!supervisorsData.length){
+            getSupervisors(setSupervisorsData)
+        }
+    }, [supervisorsData])
+
+    const supervisorsList = () => {
+        return (
+          <select
+            className="notification-form-item-select"
+            name="Supervisor"
+            // onChange={e => handleAttendance(e, "all number")}
+            defaultValue={""}
+            // disabled={!form.unitSelected}
+            required
+          >
+            <option value="" disabled>
+              Select a supervisor...
+            </option>
+            {supervisorsData.map(
+              (supervisor, index) =>
+                <option value={supervisor.id} key={index}>
+                    {supervisor.jurisdiction} - {supervisor.lastName}, {supervisor.firstName}
+                </option>
+            )}
+          </select>
+        );
+      };
 
     return (
         <div className="form-container">
-            <form className="notification-form">
+            <form className="notification-form" onSubmit={(e) => handleSubmit(e)}>
                 <div className="notification-form-header">
                     <h1>Notification Form</h1>
                 </div>
@@ -56,6 +88,11 @@ const NotificationForm = () => {
                         <label>Phone</label><br/>
                         <input className="notification-form-item-input" type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange}>
                         </input>
+                    </div>
+                </div>
+                <div className="notification-form-row">
+                    <div className="notification-form-item">
+                        {supervisorsList()}
                     </div>
                 </div>
                 <div className="notification-form-row">

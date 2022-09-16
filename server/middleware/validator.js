@@ -16,7 +16,7 @@ const validator = (req, res, next) => {
         }
         next()
     } else {
-        res.status(400).json({ message: "Missing required fields (firstName, lastName, email, phoneNumber, or Supervisor)!" });
+        res.status(400).json({ message: "Missing required fields (firstName, lastName)!" });
     }
 }
 
