@@ -59,6 +59,7 @@ label{
     border-radius: 2px;
     border: 1px solid lightgray;
     height: 30px;
+    min-width: 250px;
     width: 100%;
 }
 

@@ -17,6 +17,7 @@ export const submitData = (formData, setFormData, setIsLoading, setError, setRes
         .catch(err => {
             console.log(err);
             setIsLoading(false);
+            setResponse("");
             setError(err.response.data.message);
         })
 }
