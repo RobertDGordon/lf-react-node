@@ -22,27 +22,28 @@ localhost:5000/api/
 ## Run with Docker
 Docker must be installed and running.  See: https://docs.docker.com/engine/install/
 
-Step 1, build image from command line:
+- Step 1, build image from command line:
 ```
 docker build . -t server
 ```
 
-Step 2, upon successful image build, from command line:
+- Step 2, upon successful image build, from command line:
 ```
 docker run -i -p 5000:5000 server
 ```
 
-Server may then be accessed at:
+- Server may then be accessed at:
 ```
 localhost:5000/api/
 ```
 
-Step 3, shut down server, from Docker Desktop, or from command line:
+- Step 3, shut down server, from Docker Desktop, or from command line:
 ```
 docker rm -f server
 ```
 
-Alternative, run server with client by ```docker-compose``` See: https://github.com/RobertDGordon/lf-react-node#readme
+## Alternative, run server with client by ```docker-compose```
+Run both server and client at the same time, See: https://github.com/RobertDGordon/lf-react-node#readme
 
 ## Endpoints
 1. GET /api/supervisors
