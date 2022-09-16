@@ -28,7 +28,7 @@ const NotificationForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setIsLoading(true)
-        submitData(formData, setIsLoading, setError, setResponse)
+        submitData(formData, setFormData, setIsLoading, setError, setResponse);
     }
 
     useEffect(() =>{
@@ -42,9 +42,8 @@ const NotificationForm = () => {
           <select
             className="notification-form-item-select"
             name="Supervisor"
-            // onChange={e => handleAttendance(e, "all number")}
+            onChange={handleChange}
             defaultValue={""}
-            // disabled={!form.unitSelected}
             required
           >
             <option value="" disabled>
@@ -52,7 +51,7 @@ const NotificationForm = () => {
             </option>
             {supervisorsData.map(
               (supervisor, index) =>
-                <option value={supervisor.id} key={index}>
+                <option value={`${supervisor.jurisdiction} - ${supervisor.lastName}, ${supervisor.firstName}`} key={index}>
                     {supervisor.jurisdiction} - {supervisor.lastName}, {supervisor.firstName}
                 </option>
             )}
