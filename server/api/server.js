@@ -5,7 +5,6 @@ const server = express();
 const validator = require('../middleware/validator');
 
 const SUPERVISORS_URL = 'https://o3m5qixdng.execute-api.us-east-1.amazonaws.com/api/managers';
-const test_data = require('./test_data.js');
 
 server.use(express.json());
 server.use(cors());
@@ -37,7 +36,7 @@ server.get('/api/supervisors', async (req, res) => {
             return `${item.jurisdiction} - ${item.lastName}, ${item.firstName}`
         })
 
-        console.log(`Returning ${supervisorList.length} items.`);
+        console.log(`GET /api/supervisors - Returning ${supervisorList.length} items`);
 
         res.status(200).json({response: supervisorList});
 

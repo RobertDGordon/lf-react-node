@@ -1,4 +1,4 @@
-# NodeJS/Express API
+# React Notification Form
 This application is a client notification form that connects to an API which returns a list of supervisors the user can then select from and fill out the form to post a notification to the API.
 
 ## Run Local
