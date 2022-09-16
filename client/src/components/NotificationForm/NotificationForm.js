@@ -12,8 +12,13 @@ const NotificationForm = () => {
 		lastName: "",
 		email: "",
 		phoneNumber: "",
+        notifyBy: "",
 		Supervisor: "",
 	});
+    const [checkBoxes, setCheckBoxes] = useState({
+        email: false,
+        phone: false
+    })
 	const [supervisorsList, setSupervisorsList] = useState([]);
 
 	const handleChange = (e) => {
@@ -23,6 +28,23 @@ const NotificationForm = () => {
 			[e.target.name]: e.target.value,
 		});
 	};
+
+    const handleChecked = (e) => {
+        setFormData({
+            ...formData,
+            notifyBy: e.target.value
+        })
+        switch (e.target.value) {
+            case "email":
+                setCheckBoxes({email: true, phone: false})
+                break;
+            case "phone":
+                setCheckBoxes({email: false, phone: true})
+                break;
+            default:
+                break;
+        }
+    }
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -78,6 +100,7 @@ const NotificationForm = () => {
 							name="email"
 							value={formData.email}
 							onChange={handleChange}
+                            required={checkBoxes.email}
 						></input>
 					</div>
 					<div className="notification-form-item">
@@ -89,9 +112,35 @@ const NotificationForm = () => {
 							name="phoneNumber"
 							value={formData.phoneNumber}
 							onChange={handleChange}
+                            required={checkBoxes.phone}
 						></input>
 					</div>
 				</div>
+                <div className="notification-form-row">
+                    <div className="notification-form-item">
+                        Notify me by:
+                        <label>
+                            <input
+                                className="notification-form-item-checkbox"
+                                type="checkbox"
+                                checked={checkBoxes.email}
+                                value="email"
+                                onChange={handleChecked}
+                            />
+                        Email
+                        </label>
+                        <label>
+                            <input
+                                className="notification-form-item-checkbox"
+                                type="checkbox"
+                                checked={checkBoxes.phone}
+                                value="phone"
+                                onChange={handleChecked}
+                            />
+                        Phone
+                        </label>
+                    </div>
+                </div>
 				<div className="notification-form-row">
 					<div className="notification-form-item">
                         <select

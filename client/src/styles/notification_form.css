@@ -55,6 +55,10 @@ label{
     width: 100%;
 }
 
+.notification-form-item-checkbox{
+    margin-left: 15px;
+}
+
 .notification-form-item-select{
     border-radius: 2px;
     border: 1px solid lightgray;
