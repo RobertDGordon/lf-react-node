@@ -4,7 +4,7 @@ import { submitData } from "../../utils/submitData";
 import "../../styles/notification_form.css";
 
 const NotificationForm = () => {
-	const [isLoading, setIsLoading] = useState(false);
+	const [isSending, setIsSending] = useState(false);
 	const [error, setError] = useState("");
 	const [response, setResponse] = useState("");
 	const [formData, setFormData] = useState({
@@ -48,8 +48,8 @@ const NotificationForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setIsLoading(true);
-		submitData(formData, setFormData, setIsLoading, setError, setResponse);
+		setIsSending(true);
+		submitData(formData, setFormData, setCheckBoxes, setIsSending, setError, setResponse);
 	};
 
 	useEffect(() => {
@@ -104,7 +104,7 @@ const NotificationForm = () => {
 						></input>
 					</div>
 					<div className="notification-form-item">
-						<label>Phone</label>
+						<label>Phone Number</label>
 						<br />
 						<input
 							className="notification-form-item-input"
@@ -166,7 +166,7 @@ const NotificationForm = () => {
 				</div>
 				<div className="notification-form-row">
 					<div className="notification-form-item">
-						{isLoading ? (
+						{isSending ? (
 							<div className="notification-form-sending">Sending...</div>
 						) : (
 							<button className="notification-form-button" type="submit">

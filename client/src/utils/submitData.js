@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const submitData = (formData, setFormData, setIsLoading, setError, setResponse) => {
+export const submitData = (formData, setFormData, setCheckBoxes, setIsSending, setError, setResponse) => {
     axios.post(`http://localhost:5000/api/submit`, formData)
         .then(res => {
-            setIsLoading(false);
+            setIsSending(false);
             setError("");
             setResponse("Thank you for your submission!");
             setFormData({
@@ -11,12 +11,14 @@ export const submitData = (formData, setFormData, setIsLoading, setError, setRes
                 lastName: "",
                 email: "",
                 phoneNumber: "",
+                notifyBy: "",
                 Supervisor: ""
             });
+            setCheckBoxes({email: false, phone: false})
         })
         .catch(err => {
             console.log(err);
-            setIsLoading(false);
+            setIsSending(false);
             setResponse("");
             setError(err.response.data.message);
         })
