@@ -5,6 +5,7 @@ const server = express();
 const validator = require('../middleware/validator');
 
 const SUPERVISORS_URL = 'https://o3m5qixdng.execute-api.us-east-1.amazonaws.com/api/managers';
+const test_data = require('./test_data');
 
 server.use(express.json());
 server.use(cors());
@@ -17,7 +18,8 @@ server.get('/api', (req, res) => {
 //Managers route
 server.get('/api/supervisors', async (req, res) => {
     try {
-        let response = await axios(SUPERVISORS_URL);
+        // let response = await axios(SUPERVISORS_URL);
+        let response = test_data;
 
         //remove numerical jurisdictions
         let filtered = response.data.filter(item => !isFinite(item.jurisdiction));

@@ -21,6 +21,19 @@ const NotificationForm = () => {
     })
 	const [supervisorsList, setSupervisorsList] = useState([]);
 
+	const [userInput, setUserInput] = useState("");
+	
+	//Initialize as an array
+	const [filteredList, setFilteredList] = useState(["Search for supervisor above..."]);
+
+	const onSearchChange = (e) => {
+		setUserInput(e.target.value);
+		let result = supervisorsList.filter((supervisor) => {
+			return supervisor.toLowerCase().includes(userInput.toLowerCase())
+		});
+		setFilteredList(result);
+	}
+
 	const handleChange = (e) => {
 		e.preventDefault();
 		setFormData({
@@ -143,6 +156,19 @@ const NotificationForm = () => {
                 </div>
 				<div className="notification-form-row">
 					<div className="notification-form-item">
+						<label>Search Supervisor</label>
+						<br />
+						<input
+							className="notification-form-item-input"
+							type="text"
+							name="firstName"
+							value={userInput}
+							onChange={onSearchChange}
+						></input>
+					</div>
+				</div>
+				<div className="notification-form-row">
+					<div className="notification-form-item">
                         <select
                             className="notification-form-item-select"
                             name="Supervisor"
@@ -150,10 +176,10 @@ const NotificationForm = () => {
                             value={formData.Supervisor}
                             required
                         >
-                            <option value="" disabled>
+                            {/* <option value="" disabled>
                                 Select a supervisor...
-                            </option>
-                            {supervisorsList.map((supervisor, index) => (
+                            </option> */}
+                            {filteredList.map((supervisor, index) => (
                                 <option
                                     value={supervisor}
                                     key={index}
